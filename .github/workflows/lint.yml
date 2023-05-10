@@ -1,0 +1,23 @@
+name: Lint
+
+on: [push]
+
+jobs:
+  clang-tidy:
+    name: clang-tidy
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Run clang-tidy on all files
+      uses: cpp-linter/cpp-linter-action@main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        style: ''
+        tidy-checks: ''
+        version: 14
+        files-changed-only: false
+
