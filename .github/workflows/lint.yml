@@ -11,11 +11,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Manually install LLVM 16
+    - name: Manually install clang-tools v16
       run: |
-        wget https://apt.llvm.org/llvm.sh
-        chmod +x llvm.sh
-        sudo ./llvm.sh 16
+        wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
+        sudo add-apt-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-16 main"
+        sudo apt install clang-tools-16 clang-tidy-16 clang-format-16
 
     - name: Run clang-tidy on all files
       uses: cpp-linter/cpp-linter-action@main
